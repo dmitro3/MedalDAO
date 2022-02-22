@@ -1,0 +1,272 @@
+import React, { useMemo } from 'react';
+import { useWallet } from 'use-wallet';
+import styled from 'styled-components';
+import Stake from './components/Stake';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
+import { roundAndFormatNumber } from '../../0x';
+
+import { Alert } from '@material-ui/lab';
+
+import UnlockWallet from '../../components/UnlockWallet';
+import Page from '../../components/Page';
+
+import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
+import useXbombBalance from '../../hooks/useXbombBalance';
+import useFetchBombAPR from '../../hooks/useFetchBombAPR';
+import useBombStats from '../../hooks/useBombStats';
+import useXbombAPR from '../../hooks/useXbombAPR';
+import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
+import useStakedBombBalance from '../../hooks/useStakedBombBalance';
+import useStakedTotalBombBalance from '../../hooks/useTotalStakedBombBalance';
+import { createGlobalStyle } from 'styled-components';
+import { Helmet } from 'react-helmet'
+
+import HomeImage from '../../assets/img/background.jpg';
+const BackgroundImage = createGlobalStyle`
+  body {
+    background: url(${HomeImage}) repeat !important;
+    background-size: cover !important;
+    background-color: #171923;
+  }
+`;
+const TITLE = 'bul.finance | xBOMB - BUL Staking'
+
+const useStyles = makeStyles((theme) => ({
+  gridItem: {
+    height: '100%',
+    [theme.breakpoints.up('md')]: {
+      height: '90px',
+    },
+  },
+}));
+
+const Staking = () => {
+  const classes = useStyles();
+  const { account } = useWallet();
+  // const { onRedeem } = useRedeemOnBoardroom();
+  //  const stakedBombBalance = useStakedBombBalance();
+  const xbombBalance = useXbombBalance();
+  const xbombRate = Number(xbombBalance / 1000000000000000000).toFixed(4);
+  const xbombAPR = useXbombAPR();
+
+  //const xbombTVL = xbombAPR.TVL;
+  const stakedTotalBombBalance = useStakedTotalBombBalance();
+  const bombTotalStaked = Number(stakedTotalBombBalance / 1000000000000000000).toFixed(0);
+  const xbombTVL = useMemo(() => (xbombAPR ? Number(xbombAPR.TVL).toFixed(0) : null), [xbombAPR]);
+  const xbombDailyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.dailyAPR).toFixed(2) : null), [xbombAPR]);
+  const xbombYearlyAPR = useMemo(() => (xbombAPR ? Number(xbombAPR.yearlyAPR).toFixed(2) : null), [xbombAPR]);
+
+  // console.log('xbombAPR', xbombYearlyAPR);
+
+  // const cashStat = useCashPriceInEstimatedTWAP();
+  const boardroomAPR = useFetchBombAPR();
+
+  return (
+    <Page>
+      <BackgroundImage />
+      <Helmet>
+        <title>{TITLE}</title>
+      </Helmet>
+      {!!account ? (
+        <>
+          <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+            BUL Staking for xBOMB
+          </Typography>
+          <Grid container justify="center">
+            <Box mt={3} style={{ width: '600px' }}>
+              <Alert variant="filled" severity="info">
+                <b> Most rewards are generated from boardroom printing! Rewards come from:</b><br />
+                - 80% of autocompounder fees are used to buy BUL on the open market<br />
+                - 20% of all BUL minted - from protocol allocation, does not impact BSHARE boardroom printing.<br />
+                If TWAP of BUL peg is not over 1.01, yield will be reduced.<br />
+                APR is based on performance since launch on January 24th, 2022.
+              </Alert>
+
+            </Box>
+          </Grid>
+
+
+
+          <Box mt={5}>
+            <Grid container justify="center" spacing={3}>
+
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>1 xBOMB =</Typography>
+                    <Typography>{Number(xbombRate)} BUL</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              {/* <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>
+                      BUL PEG <small>(TWAP)</small>
+                    </Typography>
+                    <Typography>{scalingFactor} BTC</Typography>
+                    <Typography>
+                      <small>per 10,000 BUL</small>
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid> */}
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>APR</Typography>
+                    <Typography>{xbombYearlyAPR}%</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>Daily APR</Typography>
+                    <Typography>{xbombDailyAPR}%</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BUL Staked</Typography>
+                    <Typography>{roundAndFormatNumber(bombTotalStaked)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
+                <Card className={classes.gridItem}>
+                  <CardContent align="center">
+                    <Typography style={{ textTransform: 'uppercase', color: '#f9d749' }}>BUL Staked USD</Typography>
+                    <Typography>${roundAndFormatNumber(xbombTVL, 2)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+
+
+            <Box mt={4}>
+              <StyledBoardroom>
+                <StyledCardsWrapper>
+                  {/* <StyledCardWrapper>
+                    <Harvest />
+                  </StyledCardWrapper> */}
+                  {/* <Spacer /> */}
+
+                  <StyledCardWrapper>
+
+                    <Stake />
+                  </StyledCardWrapper>
+                </StyledCardsWrapper>
+              </StyledBoardroom>
+            </Box>
+            <Box mt={4}>
+              <StyledBoardroom>
+                <StyledCardsWrapper>
+                  {/* <StyledCardWrapper>
+                    <Harvest />
+                  </StyledCardWrapper> */}
+                  {/* <Spacer /> */}
+                  <StyledCardWrapper>
+                    <Box>
+                      <Card>
+                        <CardContent>
+                          <h2>About xBOMB & Rewards</h2>
+                          <p><strong>Early staker bonus! Between January 24 and February 7th 50,000 BUL will be deposited as free rewards for all stakers. This will happen at randomized times.</strong></p>
+                          <p>xBOMB will be the governance token required to cast votes on protocol decisions.</p>
+                          <p>20% of all BUL minted will be deposited into the xBOMB smart contract, increasing the amount of BUL that can be redeemed for each xBOMB. Rewards will be deposited at random times to prevent abuse.</p>
+                          <p>Functionality will be developed around xBOMB including using it as collateral to borrow other assets.</p>
+                          <p>Reward structure subject to change based on community voting.</p>
+                        </CardContent>
+                      </Card>
+                    </Box>
+                  </StyledCardWrapper>
+                </StyledCardsWrapper>
+              </StyledBoardroom>
+            </Box>
+            {/* <Grid container justify="center" spacing={3}>
+            <Grid item xs={4}>
+              <Card>
+                <CardContent align="center">
+                  <Typography>Rewards</Typography>
+
+                </CardContent>
+                <CardActions style={{justifyContent: 'center'}}>
+                  <Button color="primary" variant="outlined">Claim Reward</Button>
+                </CardActions>
+                <CardContent align="center">
+                  <Typography>Claim Countdown</Typography>
+                  <Typography>00:00:00</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={4}>
+              <Card>
+                <CardContent align="center">
+                  <Typography>Stakings</Typography>
+                  <Typography>{getDisplayBalance(stakedBalance)}</Typography>
+                </CardContent>
+                <CardActions style={{justifyContent: 'center'}}>
+                  <Button>+</Button>
+                  <Button>-</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid> */}
+          </Box>
+          {/* 
+          <Box mt={5}>
+            <Grid container justify="center" spacing={3} mt={10}>
+              <Button
+                disabled={stakedBombBalance.eq(0) || (!canWithdraw && !canClaimReward)}
+                onClick={onRedeem}
+                className={
+                  stakedBombBalance.eq(0) || (!canWithdraw && !canClaimReward)
+                    ? 'shinyButtonDisabledSecondary'
+                    : 'shinyButtonSecondary'
+                }
+              >
+                Claim &amp; Withdraw
+              </Button>
+            </Grid>
+          </Box> */}
+        </>
+      ) : (
+        <UnlockWallet />
+      )}
+    </Page>
+  );
+};
+
+const StyledBoardroom = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const StyledCardsWrapper = styled.div`
+  display: flex;
+  width: 600px;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+`;
+
+const StyledCardWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+`;
+
+export default Staking;
