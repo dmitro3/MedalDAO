@@ -1,4 +1,4 @@
-# 🪦Welcome to the 2omb ecosystem🪦
+# Medal DAO front-end
 [
 Thanks for taking the time to contribute!
 You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.](url)
@@ -32,7 +32,7 @@ npx prettier --write .
 
 ## Useful Resources
 
-- [Our project documentation](https://docs.2omb.finance/) will help you understand before start contributing
+- [Our project documentation](https://docs.MedalDAO.finance/) will help you understand before start contributing
 - Join our [Discord](https://discord.gg/GYYwUKQdgu) community
 - Or if you are more of a [Telegram Zombie](https://t.me/+ixpXDfee5EIzNmYx) we have that too
 - Bugs? Use the [Issues]() section of our github to report them

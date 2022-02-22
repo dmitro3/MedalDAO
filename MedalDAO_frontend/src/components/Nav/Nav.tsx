@@ -117,13 +117,13 @@ const Nav = () => {
 								Home
 							</Link>
 							<Link color="textPrimary" to="/farms" className={classes.link}>
-								2Farms
+								Farms (coming soon)
 							</Link>
 							<Link color="textPrimary" to="/boardroom" className={classes.link}>
-								Boardroom
+								Boardroom (coming soon)
 							</Link>
 							<Link color="textPrimary" to="/bonds" className={classes.link}>
-								Bonds
+								Bonds (coming soon)
 							</Link>
 							{/* <Link color="textPrimary" to="/dividends" className={classes.link}>
                 Dividends
@@ -137,12 +137,12 @@ const Nav = () => {
               <Link color="textPrimary" to="/regulations" className={classes.link}>
                 Regulations
               </Link> */}
-							<a target="_blank" href="https://3omb.finance/rebates" className={classes.link}>
+							{/* <a target="_blank" href="https://3omb.finance/rebates" className={classes.link}>
 								3DAO
 							</a>
 							<a target="_blank" href="https://www.devilfinance.io" className={classes.link}>
 								Vaults
-							</a>
+							</a> */}
 							{/* <a target="_blank" href="https://snapshot.org/#/forgiving.forg.eth" className={classes.link}>
 								Governance
 							</a> */}
@@ -152,9 +152,9 @@ const Nav = () => {
               <a target="_blank" rel="noopener noreferrer" href="https://docs.2omb.finance" className={classes.link}>
                 Docs
               </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://3omb.finance/" className={classes.link}>
+              {/* <a target="_blank" rel="noopener noreferrer" href="https://3omb.finance/" className={classes.link}>
                 3omb
-              </a>
+              </a> */}
             </Box>
             <AccountButton text="Connect" />
           </>

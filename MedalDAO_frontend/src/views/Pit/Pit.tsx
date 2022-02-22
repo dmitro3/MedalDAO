@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import Page from '../../components/Page';
 import PitImage from '../../assets/img/background.png';
+import PitImageMobile from '../../assets/img/mobile_background.png';
 import { createGlobalStyle } from 'styled-components';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
@@ -21,9 +22,15 @@ import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../tomb-finance/cons
 import { Typography } from '@material-ui/core';
 
 const BackgroundImage = createGlobalStyle`
-  body {
-    background: url(${PitImage}) no-repeat !important;
-    background-size: cover !important;
+	body {
+		background: url(${PitImage}) no-repeat !important;
+    	background-size: cover !important;
+  	}
+  	@media (max-width: 900px) {
+		  body {
+			background: url(${PitImageMobile}) no-repeat !important;
+			background-size: cover !important;
+		  }
   }
 `;
 

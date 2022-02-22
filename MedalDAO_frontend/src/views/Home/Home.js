@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/background.png';
+import HomeImageMobile from '../../assets/img/mobile_background.png';
 import CashImage from '../../assets/img/t_2OMB-02.png';
 import Image from 'material-ui-image';
 import styled from 'styled-components';
@@ -29,9 +30,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import useTombFinance from '../../hooks/useTombFinance';
 
 const BackgroundImage = createGlobalStyle`
-  body {
-    background: url(${HomeImage}) no-repeat !important;
-    background-size: cover !important;
+	body {
+		background: url(${HomeImage}) no-repeat !important;
+    	background-size: cover !important;
+  	}
+  	@media (max-width: 900px) {
+		  body {
+        background: url(${HomeImageMobile}) no-repeat !important;
+        background-size: cover !important;
+		  }
   }
 `;
 

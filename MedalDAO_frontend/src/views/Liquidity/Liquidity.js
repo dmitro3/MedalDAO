@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
 import HomeImage from '../../assets/img/background.png';
+import HomeImageMobile from '../../assets/img/mobile_background.png';
 import useLpStats from '../../hooks/useLpStats';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import useTombStats from '../../hooks/useTombStats';
@@ -16,9 +17,15 @@ import useProvideTombFtmLP from '../../hooks/useProvideTombFtmLP';
 import { Alert } from '@material-ui/lab';
 
 const BackgroundImage = createGlobalStyle`
-  body {
-    background: url(${HomeImage}) no-repeat !important;
-    background-size: cover !important;
+	body {
+		background: url(${HomeImage}) no-repeat !important;
+    	background-size: cover !important;
+  	}
+  	@media (max-width: 900px) {
+		  body {
+        background: url(${HomeImageMobile}) no-repeat !important;
+        background-size: cover !important;
+		  }
   }
 `;
 function isNumeric(n) {

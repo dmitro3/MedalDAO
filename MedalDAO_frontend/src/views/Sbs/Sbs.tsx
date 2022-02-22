@@ -1,6 +1,7 @@
 import React, { /*useCallback, useEffect, */useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import PitImage from '../../assets/img/background.png';
+import PitImageMobile from '../../assets/img/mobile_background.png';
 import { createGlobalStyle } from 'styled-components';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
@@ -21,9 +22,15 @@ import CardContent from '../../components/CardContent';
 import TokenSymbol from '../../components/TokenSymbol';
 
 const BackgroundImage = createGlobalStyle`
-  body {
-    background: url(${PitImage}) no-repeat !important;
-    background-size: cover !important;
+	body {
+		background: url(${PitImage}) no-repeat !important;
+    	background-size: cover !important;
+  	}
+  	@media (max-width: 900px) {
+		  body {
+        background: url(${PitImageMobile}) no-repeat !important;
+        background-size: cover !important;
+		  }
   }
 `;
 

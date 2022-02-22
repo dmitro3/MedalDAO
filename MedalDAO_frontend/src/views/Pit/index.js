@@ -1,1 +1,1 @@
-export { default } from './Pit';
+export { default } from './ComingSoon';

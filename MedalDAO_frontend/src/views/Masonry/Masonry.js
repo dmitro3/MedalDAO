@@ -27,6 +27,7 @@ import useClaimRewardCheck from '../../hooks/masonry/useClaimRewardCheck';
 import useWithdrawCheck from '../../hooks/masonry/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import MasonryImage from '../../assets/img/background.png';
+import MasonryImageMobile from '../../assets/img/mobile_background.png';
 import { createGlobalStyle } from 'styled-components';
 
 const BackgroundImage = createGlobalStyle`
@@ -34,6 +35,12 @@ const BackgroundImage = createGlobalStyle`
     background: url(${MasonryImage}) no-repeat !important;
     background-size: cover !important;
   }
+  @media (max-width: 900px) {
+    body {
+      background: url(${MasonryImageMobile}) no-repeat !important;
+      background-size: cover !important;
+    }
+}
 `;
 
 const useStyles = makeStyles((theme) => ({

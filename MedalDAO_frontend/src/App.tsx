@@ -59,9 +59,9 @@ const App: React.FC = () => {
             <Route path="/bonds">
               <Pit />
             </Route>
-            <Route path="/dividends">
+            {/* <Route path="/dividends">
               <Dividends />
-            </Route>
+            </Route> */}
             {/* <Route path="/sbs">
               <SBS />
             </Route>
@@ -91,7 +91,7 @@ const Providers: React.FC = ({ children }) => {
             walletconnect: { rpcUrl: config.defaultProvider },
             walletlink: {
               url: config.defaultProvider,
-              appName: '2omb Finance',
+              appName: 'Medal Fiance',
               appLogoUrl: 'https://github.com/tombfinance/tombfinance-assets/blob/master/logo_tomb_NoBG.png',
             },
           }}
