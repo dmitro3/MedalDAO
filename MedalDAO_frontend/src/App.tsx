@@ -1,12 +1,12 @@
-import React, {Suspense, lazy} from 'react';
-import {Provider} from 'react-redux';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {ThemeProvider as TP} from '@material-ui/core/styles';
-import {ThemeProvider as TP1} from 'styled-components';
-import {UseWalletProvider} from 'use-wallet';
+import React, { Suspense, lazy } from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ThemeProvider as TP } from '@material-ui/core/styles';
+import { ThemeProvider as TP1 } from 'styled-components';
+import { UseWalletProvider } from 'use-wallet';
 import usePromptNetwork from './hooks/useNetworkPrompt';
 import BanksProvider from './contexts/Banks';
-import BombFinanceProvider from './contexts/BombFinanceProvider';
+import TombFinanceProvider from './contexts/TombFinanceProvider';
 import ModalsProvider from './contexts/Modals';
 import store from './state';
 import theme from './theme';
@@ -15,19 +15,19 @@ import config from './config';
 import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
-//import Regulations from './views/Regulations/Regulations';
-import {RefreshContextProvider} from './contexts/RefreshContext';
+import Regulations from './views/Regulations/Regulations';
+import { RefreshContextProvider } from './contexts/RefreshContext';
 
 const Home = lazy(() => import('./views/Home'));
-const Farm = lazy(() => import('./views/Farm'));
-const Boardroom = lazy(() => import('./views/Boardroom'));
-const Bond = lazy(() => import('./views/Bond'));
-const Xbomb = lazy(() => import('./views/Stake'));
-// const SBS = lazy(() => import('./views/Sbs'));
-// const Liquidity = lazy(() => import('./views/Liquidity'));
+const Cemetery = lazy(() => import('./views/Cemetery'));
+const Masonry = lazy(() => import('./views/Masonry'));
+const Pit = lazy(() => import('./views/Pit'));
+const SBS = lazy(() => import('./views/Sbs'));
+const Liquidity = lazy(() => import('./views/Liquidity'));
+const Dividends = lazy(() => import('./views/Dividends'));
 
 const NoMatch = () => (
-  <h3 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+  <h3 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
     URL Not Found. <a href="/">Go back home.</a>
   </h3>
 );
@@ -50,25 +50,25 @@ const App: React.FC = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/farm">
-              <Farm />
+            <Route path="/farms">
+              <Cemetery />
             </Route>
             <Route path="/boardroom">
-              <Boardroom />
+              <Masonry />
             </Route>
-            <Route path="/bond">
-              <Bond />
+            <Route path="/bonds">
+              <Pit />
             </Route>
-            <Route path="/xbomb">
-              <Xbomb />
+            <Route path="/dividends">
+              <Dividends />
             </Route>
             {/* <Route path="/sbs">
               <SBS />
-            </Route> */}
-            {/* <Route path="/regulations">
+            </Route>
+            <Route path="/regulations">
               <Regulations />
-            </Route> */}
-            {/* <Route path="/liquidity">
+            </Route>
+            <Route path="/liquidity">
               <Liquidity />
             </Route> */}
             <Route path="*">
@@ -81,26 +81,25 @@ const App: React.FC = () => {
   );
 };
 
-const Providers: React.FC = ({children}) => {
+const Providers: React.FC = ({ children }) => {
   return (
     <TP1 theme={theme}>
       <TP theme={newTheme}>
         <UseWalletProvider
-                    chainId={config.chainId}
-
+          chainId={config.chainId}
           connectors={{
-            walletconnect: {rpcUrl: config.defaultProvider},
+            walletconnect: { rpcUrl: config.defaultProvider },
             walletlink: {
               url: config.defaultProvider,
-              appName: 'bul.finance',
-              appLogoUrl: 'https://raw.githubusercontent.com/bombmoney/bomb-assets/master/bomb-512.png',
+              appName: '2omb Finance',
+              appLogoUrl: 'https://github.com/tombfinance/tombfinance-assets/blob/master/logo_tomb_NoBG.png',
             },
           }}
         >
           <Provider store={store}>
             <Updaters />
             <RefreshContextProvider>
-              <BombFinanceProvider>
+              <TombFinanceProvider>
                 <ModalsProvider>
                   <BanksProvider>
                     <>
@@ -109,7 +108,7 @@ const Providers: React.FC = ({children}) => {
                     </>
                   </BanksProvider>
                 </ModalsProvider>
-              </BombFinanceProvider>
+              </TombFinanceProvider>
             </RefreshContextProvider>
           </Provider>
         </UseWalletProvider>

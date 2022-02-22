@@ -1,10 +1,10 @@
-import {BigNumber, ethers} from 'ethers';
-import {useCallback, useMemo} from 'react';
-import {useHasPendingApproval, useTransactionAdder} from '../state/transactions/hooks';
+import { BigNumber, ethers } from 'ethers';
+import { useCallback, useMemo } from 'react';
+import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
-import ERC20 from '../bomb-finance/ERC20';
-import {TAX_OFFICE_ADDR} from '../utils/constants';
-import useBombFinance from './useBombFinance';
+import ERC20 from '../tomb-finance/ERC20';
+import { TAX_OFFICE_ADDR } from '../utils/constants';
+import useTombFinance from './useTombFinance';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
 const APPROVE_BASE_AMOUNT = BigNumber.from('1000000000000000000000000');
@@ -18,18 +18,18 @@ export enum ApprovalState {
 
 // returns a variable indicating the state of the approval and a function which approves if necessary or early returns
 function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
-  const bombFinance = useBombFinance();
-  let token: ERC20 = bombFinance.BUL;
-  // if (zappingToken === BNB_TICKER) token = bombFinance.BNB;
-  // else if (zappingToken === BOMB_TICKER) token = bombFinance.BUL;
-  // else if (zappingToken === BSHARE_TICKER) token = bombFinance.BSHARE;
+  const tombFinance = useTombFinance();
+  let token: ERC20 = tombFinance.TOMB;
+  // if (zappingToken === FTM_TICKER) token = tombFinance.FTM;
+  // else if (zappingToken === TOMB_TICKER) token = tombFinance.TOMB;
+  // else if (zappingToken === TSHARE_TICKER) token = tombFinance.TSHARE;
   const pendingApproval = useHasPendingApproval(token.address, TAX_OFFICE_ADDR);
   const currentAllowance = useAllowance(token, TAX_OFFICE_ADDR, pendingApproval);
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
-    if (token === bombFinance.BNB) return ApprovalState.APPROVED;
+    if (token === tombFinance.FTM) return ApprovalState.APPROVED;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is
@@ -38,7 +38,7 @@ function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED;
-  }, [currentAllowance, pendingApproval, token, bombFinance]);
+  }, [currentAllowance, pendingApproval, token, tombFinance]);
 
   const addTransaction = useTransactionAdder();
 

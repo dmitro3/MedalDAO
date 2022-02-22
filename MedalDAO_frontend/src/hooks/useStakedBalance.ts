@@ -1,19 +1,19 @@
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
-import {ContractName} from '../bomb-finance';
+import { BigNumber } from 'ethers';
+import useTombFinance from './useTombFinance';
+import { ContractName } from '../tomb-finance';
 import config from '../config';
 
 const useStakedBalance = (poolName: ContractName, poolId: Number) => {
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const tombFinance = useTombFinance();
+  const isUnlocked = tombFinance?.isUnlocked;
 
   const fetchBalance = useCallback(async () => {
-    const balance = await bombFinance.stakedBalanceOnBank(poolName, poolId, bombFinance.myAccount);
+    const balance = await tombFinance.stakedBalanceOnBank(poolName, poolId, tombFinance.myAccount);
     setBalance(balance);
-  }, [poolName, poolId, bombFinance]);
+  }, [poolName, poolId, tombFinance]);
 
   useEffect(() => {
     if (isUnlocked) {
@@ -22,7 +22,7 @@ const useStakedBalance = (poolName: ContractName, poolId: Number) => {
       const refreshBalance = setInterval(fetchBalance, config.refreshInterval);
       return () => clearInterval(refreshBalance);
     }
-  }, [isUnlocked, poolName, setBalance, bombFinance, fetchBalance]);
+  }, [isUnlocked, poolName, setBalance, tombFinance, fetchBalance]);
 
   return balance;
 };

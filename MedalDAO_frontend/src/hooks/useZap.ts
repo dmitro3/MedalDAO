@@ -1,22 +1,22 @@
-import {useCallback} from 'react';
-import useBombFinance from './useBombFinance';
-import {Bank} from '../bomb-finance';
+import { useCallback } from 'react';
+import useTombFinance from './useTombFinance';
+import { Bank } from '../tomb-finance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useZap = (bank: Bank) => {
-  const bombFinance = useBombFinance();
+  const tombFinance = useTombFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleZap = useCallback(
     (zappingToken: string, tokenName: string, amount: string) => {
       handleTransactionReceipt(
-        bombFinance.zapIn(zappingToken, tokenName, amount),
+        tombFinance.zapIn(zappingToken, tokenName, amount),
         `Zap ${amount} in ${bank.depositTokenName}.`,
       );
     },
-    [bank, bombFinance, handleTransactionReceipt],
+    [bank, tombFinance, handleTransactionReceipt],
   );
-  return {onZap: handleZap};
+  return { onZap: handleZap };
 };
 
 export default useZap;

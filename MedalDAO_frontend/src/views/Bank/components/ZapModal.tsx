@@ -1,22 +1,22 @@
-import React, {useState, useMemo} from 'react';
+import React, { useState, useMemo } from 'react';
 
-import {Button, Select, MenuItem, InputLabel, Typography, withStyles} from '@material-ui/core';
+import { Button, Select, MenuItem, InputLabel, Typography, withStyles } from '@material-ui/core';
 // import Button from '../../../components/Button'
-import Modal, {ModalProps} from '../../../components/Modal';
+import Modal, { ModalProps } from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';
 import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 import styled from 'styled-components';
 
-import {getDisplayBalance} from '../../../utils/formatBalance';
+import { getDisplayBalance } from '../../../utils/formatBalance';
 import Label from '../../../components/Label';
 import useLpStats from '../../../hooks/useLpStats';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useBombFinance from '../../../hooks/useBombFinance';
-import {useWallet} from 'use-wallet';
-import useApproveZapper, {ApprovalState} from '../../../hooks/useApproveZapper';
-import {BOMB_TICKER, BSHARE_TICKER, BNB_TICKER, BTC_TICKER} from '../../../utils/constants';
-import {Alert} from '@material-ui/lab';
+import useTombFinance from '../../../hooks/useTombFinance';
+import { useWallet } from 'use-wallet';
+import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
+import { TOMB_TICKER, TSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
+import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
   onConfirm: (zapAsset: string, lpName: string, amount: string) => void;
@@ -24,23 +24,23 @@ interface ZapProps extends ModalProps {
   decimals?: number;
 }
 
-const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', decimals = 18}) => {
-  const bombFinance = useBombFinance();
-  const {balance} = useWallet();
+const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', decimals = 18 }) => {
+  const tombFinance = useTombFinance();
+  const { balance } = useWallet();
   const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
-  const bombBalance = useTokenBalance(bombFinance.BUL);
-  const bshareBalance = useTokenBalance(bombFinance.BSHARE);
-  const btcBalance = useTokenBalance(bombFinance.BTC);
+  const tombBalance = useTokenBalance(tombFinance.TOMB);
+  const tshareBalance = useTokenBalance(tombFinance.TSHARE);
   const [val, setVal] = useState('');
-  const [zappingToken, setZappingToken] = useState(BNB_TICKER);
+  const [zappingToken, setZappingToken] = useState(FTM_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
-  const [estimate, setEstimate] = useState({token0: '0', token1: '0'}); // token0 will always be BNB in this case
+  const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const bombFtmLpStats = useLpStats('BUL-BTCB-LP');
-  const tShareFtmLpStats = useLpStats('BSHARE-BNB-LP');
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const ftmAmountPerLP = tokenName.startsWith(BOMB_TICKER) ? bombLPStats?.ftmAmount : bshareLPStats?.ftmAmount;
+  const tombFtmLpStats = useLpStats('2OMB-FTM-LP');
+  const tShareFtmLpStats = useLpStats('2SHARE-FTM-LP');
+  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
+  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
+  const ftmAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;
+
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -49,52 +49,54 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
   function isNumeric(n: any) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
+
   const handleChangeAsset = (event: any) => {
     const value = event.target.value;
     setZappingToken(value);
     setZappingTokenBalance(ftmBalance);
-    if (event.target.value === BSHARE_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(bshareBalance, decimals));
+    if (event.target.value === TSHARE_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(tshareBalance, decimals));
     }
-    if (event.target.value === BOMB_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(bombBalance, decimals));
-    }
-    if (event.target.value === BTC_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(btcBalance, decimals));
+    if (event.target.value === TOMB_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(tombBalance, decimals));
     }
   };
 
   const handleChange = async (e: any) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
       setVal(e.currentTarget.value);
-      setEstimate({token0: '0', token1: '0'});
+      setEstimate({ token0: '0', token1: '0' });
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setVal(e.currentTarget.value);
-    const estimateZap = await bombFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value));
-    setEstimate({token0: estimateZap[0].toString(), token1: estimateZap[1].toString()});
+    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value));
+    setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
   const handleSelectMax = async () => {
     setVal(zappingTokenBalance);
-    const estimateZap = await bombFinance.estimateZapIn(zappingToken, tokenName, String(zappingTokenBalance));
-    setEstimate({token0: estimateZap[0].toString(), token1: estimateZap[1].toString()});
+    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(zappingTokenBalance));
+    setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
   return (
     <Modal>
-      <ModalTitle text={`Zap in ${tokenName}`} />
-
+      <ModalTitle text={`Zap into ${tokenName}`} />
       <StyledActionSpacer />
-      <InputLabel style={{color: '#2c2560'}} id="label">
+      <InputLabel style={{ color: '#2c2560' }} id="label">
         Select asset to zap with
       </InputLabel>
-      <Select onChange={handleChangeAsset} style={{color: '#2c2560'}} labelId="label" id="select" value={zappingToken}>
-        <StyledMenuItem value={BNB_TICKER}>BNB</StyledMenuItem>
-        <StyledMenuItem value={BSHARE_TICKER}>BSHARE</StyledMenuItem>
-        {/* <StyledMenuItem value={BTC_TICKER}>BTC</StyledMenuItem> */}
-        {/* Bul as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
-        {/* <StyledMenuItem value={BOMB_TICKER}>BUL</StyledMenuItem> */}
+      <Select
+        onChange={handleChangeAsset}
+        style={{ color: '#2c2560' }}
+        labelId="label"
+        id="select"
+        value={zappingToken}
+      >
+        <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
+        <StyledMenuItem value={TSHARE_TICKER}>2SHARES</StyledMenuItem>
+        {/* Tomb as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
+        <StyledMenuItem value={TOMB_TICKER}>2OMB</StyledMenuItem>
       </Select>
       <TokenInput
         onSelectMax={handleSelectMax}
@@ -110,8 +112,8 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {tokenName.startsWith(BSHARE_TICKER) ? BSHARE_TICKER : BNB_TICKER} /{' '}
-        {Number(estimate.token1)} {tokenName.startsWith(BSHARE_TICKER) ? BNB_TICKER : BSHARE_TICKER}){' '}
+        ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
+        {tokenName.startsWith(TOMB_TICKER) ? TOMB_TICKER : TSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>
         <Button
@@ -126,8 +128,8 @@ const ZapModal: React.FC<ZapProps> = ({onConfirm, onDismiss, tokenName = '', dec
       </ModalActions>
 
       <StyledActionSpacer />
-      <Alert variant="filled" severity="info">
-        New feature. Use at your own risk!
+      <Alert variant="filled" severity="warning">
+        Beta feature. Use at your own risk!
       </Alert>
     </Modal>
   );

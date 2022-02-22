@@ -1,62 +1,57 @@
 import React, { useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
-import HomeImage from '../../assets/img/background.jpg';
+import HomeImage from '../../assets/img/background.png';
 import useLpStats from '../../hooks/useLpStats';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
-import useBombStats from '../../hooks/useBombStats';
+import useTombStats from '../../hooks/useTombStats';
 import TokenInput from '../../components/TokenInput';
-import useBombFinance from '../../hooks/useBombFinance';
+import useTombFinance from '../../hooks/useTombFinance';
 import { useWallet } from 'use-wallet';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useApproveTaxOffice from '../../hooks/useApproveTaxOffice';
 import { ApprovalState } from '../../hooks/useApprove';
-import useProvideBombFtmLP from '../../hooks/useProvideBombFtmLP';
+import useProvideTombFtmLP from '../../hooks/useProvideTombFtmLP';
 import { Alert } from '@material-ui/lab';
-import { Helmet } from 'react-helmet';
 
 const BackgroundImage = createGlobalStyle`
   body {
     background: url(${HomeImage}) no-repeat !important;
     background-size: cover !important;
-    background-color: #171923;
   }
 `;
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-const TITLE = 'bul.finance |'
 
 const ProvideLiquidity = () => {
-  const [bombAmount, setBombAmount] = useState(0);
+  const [tombAmount, setTombAmount] = useState(0);
   const [ftmAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
-  const bombStats = useBombStats();
-  const bombFinance = useBombFinance();
+  const tombStats = useTombStats();
+  const tombFinance = useTombFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
-  const bombBalance = useTokenBalance(bombFinance.BUL);
-  const btcBalance = useTokenBalance(bombFinance.BTC);
+  const tombBalance = useTokenBalance(tombFinance.TOMB);
+  const ftmBalance = (balance / 1e18).toFixed(4);
+  const { onProvideTombFtmLP } = useProvideTombFtmLP();
+  const tombFtmLpStats = useLpStats('2OMB-FTM-LP');
 
-  const ftmBalance = (btcBalance / 1e18).toFixed(4);
-  const { onProvideBombFtmLP } = useProvideBombFtmLP();
-  const bombFtmLpStats = useLpStats('BUL-BTCB-LP');
-
-  const bombLPStats = useMemo(() => (bombFtmLpStats ? bombFtmLpStats : null), [bombFtmLpStats]);
-  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
-  const ftmPriceInBOMB = useMemo(() => (bombStats ? Number(1 / bombStats.tokenInFtm).toFixed(2) : null), [bombStats]);
+  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
+  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(2) : null), [tombStats]);
+  const ftmPriceInTOMB = useMemo(() => (tombStats ? Number(1 / tombStats.tokenInFtm).toFixed(2) : null), [tombStats]);
   // const classes = useStyles();
 
-  const handleBombChange = async (e) => {
+  const handleTombChange = async (e) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
-      setBombAmount(e.currentTarget.value);
+      setTombAmount(e.currentTarget.value);
     }
     if (!isNumeric(e.currentTarget.value)) return;
-    setBombAmount(e.currentTarget.value);
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(e.currentTarget.value, 'BUL');
+    setTombAmount(e.currentTarget.value);
+    const quoteFromSpooky = await tombFinance.quoteFromSpooky(e.currentTarget.value, 'TOMB');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.ftmAmount);
+    setLpTokensAmount(quoteFromSpooky / tombLPStats.ftmAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -65,29 +60,25 @@ const ProvideLiquidity = () => {
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setFtmAmount(e.currentTarget.value);
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(e.currentTarget.value, 'BTCB');
-    setBombAmount(quoteFromSpooky);
+    const quoteFromSpooky = await tombFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
+    setTombAmount(quoteFromSpooky);
 
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.tokenAmount);
+    setLpTokensAmount(quoteFromSpooky / tombLPStats.tokenAmount);
   };
-  const handleBombSelectMax = async () => {
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(getDisplayBalance(bombBalance), 'BUL');
-    setBombAmount(getDisplayBalance(bombBalance));
+  const handleTombSelectMax = async () => {
+    const quoteFromSpooky = await tombFinance.quoteFromSpooky(getDisplayBalance(tombBalance), 'TOMB');
+    setTombAmount(getDisplayBalance(tombBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / bombLPStats.ftmAmount);
+    setLpTokensAmount(quoteFromSpooky / tombLPStats.ftmAmount);
   };
   const handleFtmSelectMax = async () => {
-    const quoteFromSpooky = await bombFinance.quoteFromSpooky(ftmBalance, 'BNB');
+    const quoteFromSpooky = await tombFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
-    setBombAmount(quoteFromSpooky);
-    setLpTokensAmount(ftmBalance / bombLPStats.ftmAmount);
+    setTombAmount(quoteFromSpooky);
+    setLpTokensAmount(ftmBalance / tombLPStats.ftmAmount);
   };
   return (
-
     <Page>
-      <Helmet>
-        <title>{TITLE}</title>
-      </Helmet>
       <BackgroundImage />
       <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
         Provide Liquidity
@@ -96,13 +87,7 @@ const ProvideLiquidity = () => {
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>
-              This and{' '}
-              <a href="https://pancakeswap.finance/" rel="noopener noreferrer" target="_blank">
-                Pancakeswap
-              </a>{' '}
-              are the only ways to provide Liquidity on BUL-BTCB pair without paying tax.
-            </b>
+            <b>This and <a href="https://spookyswap.finance/"  rel="noopener noreferrer" target="_blank">Spookyswap</a> are the only ways to provide Liquidity on TOMB-FTM pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -112,11 +97,11 @@ const ProvideLiquidity = () => {
                     <Grid container>
                       <Grid item xs={12}>
                         <TokenInput
-                          onSelectMax={handleBombSelectMax}
-                          onChange={handleBombChange}
-                          value={bombAmount}
-                          max={getDisplayBalance(bombBalance)}
-                          symbol={'BUL'}
+                          onSelectMax={handleTombSelectMax}
+                          onChange={handleTombChange}
+                          value={tombAmount}
+                          max={getDisplayBalance(tombBalance)}
+                          symbol={'TOMB'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
@@ -125,19 +110,19 @@ const ProvideLiquidity = () => {
                           onChange={handleFtmChange}
                           value={ftmAmount}
                           max={ftmBalance}
-                          symbol={'BTCB'}
+                          symbol={'FTM'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 BUL = {bombPriceInBNB} BNB</p>
-                        <p>1 BNB = {ftmPriceInBOMB} BUL</p>
+                        <p>1 TOMB = {tombPriceInFTM} FTM</p>
+                        <p>1 FTM = {ftmPriceInTOMB} TOMB</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideBombFtmLP(ftmAmount.toString(), bombAmount.toString())}
+                            onClick={() => onProvideTombFtmLP(ftmAmount.toString(), tombAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

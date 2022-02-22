@@ -1,64 +1,52 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import useTokenBalance from '../../hooks/useTokenBalance';
-import {getDisplayBalance} from '../../utils/formatBalance';
+import { getDisplayBalance } from '../../utils/formatBalance';
 
 import Label from '../Label';
-import Modal, {ModalProps} from '../Modal';
+import Modal, { ModalProps } from '../Modal';
 import ModalTitle from '../ModalTitle';
-import useBombFinance from '../../hooks/useBombFinance';
+import useTombFinance from '../../hooks/useTombFinance';
 import TokenSymbol from '../TokenSymbol';
-import {useMediaQuery} from '@material-ui/core';
 
-const AccountModal: React.FC<ModalProps> = ({onDismiss}) => {
-  const bombFinance = useBombFinance();
+const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
+  const tombFinance = useTombFinance();
 
-  const bombBalance = useTokenBalance(bombFinance.BUL);
-  const displayBombBalance = useMemo(() => getDisplayBalance(bombBalance, 18, 2), [bombBalance]);
+  const tombBalance = useTokenBalance(tombFinance.TOMB);
+  const displayTombBalance = useMemo(() => getDisplayBalance(tombBalance), [tombBalance]);
 
-  const bshareBalance = useTokenBalance(bombFinance.BSHARE);
-  const displayBshareBalance = useMemo(() => getDisplayBalance(bshareBalance, 18, 2), [bshareBalance]);
+  const tshareBalance = useTokenBalance(tombFinance.TSHARE);
+  const displayTshareBalance = useMemo(() => getDisplayBalance(tshareBalance), [tshareBalance]);
 
-  const bbondBalance = useTokenBalance(bombFinance.BULBOND);
-  const displayBbondBalance = useMemo(() => getDisplayBalance(bbondBalance, 18, 2), [bbondBalance]);
-
-    const xbombBalance = useTokenBalance(bombFinance.XBOMB);
-  const displayXbombBalance = useMemo(() => getDisplayBalance(xbombBalance, 18, 2), [xbombBalance]);
-
-  const matches = useMediaQuery('(min-width:900px)');
+  const tbondBalance = useTokenBalance(tombFinance.TBOND);
+  const displayTbondBalance = useMemo(() => getDisplayBalance(tbondBalance), [tbondBalance]);
 
   return (
     <Modal>
       <ModalTitle text="My Wallet" />
 
-      <Balances style={{display: 'flex', flexDirection: matches ? 'row' : 'column'}}>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BUL" />
+      <Balances>
+        <StyledBalanceWrapper>
+          <TokenSymbol symbol="2OMB" />
           <StyledBalance>
-            <StyledValue>{displayBombBalance}</StyledValue>
-            <Label text="BUL Available" />
+            <StyledValue>{displayTombBalance}</StyledValue>
+            <Label text="2OMB Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BSHARE" />
+        <StyledBalanceWrapper>
+          <TokenSymbol symbol="2SHARES" />
           <StyledBalance>
-            <StyledValue>{displayBshareBalance}</StyledValue>
-            <Label text="BSHARE Available" />
+            <StyledValue>{displayTshareBalance}</StyledValue>
+            <Label text="2SHARES Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="XBOMB" />
+
+        <StyledBalanceWrapper>
+          <TokenSymbol symbol="2BOND" />
           <StyledBalance>
-            <StyledValue>{displayXbombBalance}</StyledValue>
-            <Label text="XBOMB Available" />
-          </StyledBalance>
-        </StyledBalanceWrapper>
-        <StyledBalanceWrapper style={{paddingBottom: '15px'}}>
-          <TokenSymbol symbol="BULBOND" />
-          <StyledBalance>
-            <StyledValue>{displayBbondBalance}</StyledValue>
-            <Label text="BULBOND Available" />
+            <StyledValue>{displayTbondBalance}</StyledValue>
+            <Label text="2BOND Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

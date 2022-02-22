@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import config from './../config';
 
 const usePromptNetwork = () => {
   const [networkPrompt, setNetworkPrompt] = useState(false);
-  const {ethereum} = window as any;
+  const { ethereum } = window as any;
 
   /**
    * For more read https://github.com/NoahZinsmeister/web3-react/blob/6737868693adb7e1e28ae80499e19901e9aae45a/example/hooks.ts#L33
@@ -19,8 +19,8 @@ const usePromptNetwork = () => {
           chainId: `0x${config.chainId.toString(16)}`,
           chainName: config.networkName,
           nativeCurrency: {
-            name: 'BNB',
-            symbol: 'BNB',
+            name: 'FTM',
+            symbol: 'ftm',
             decimals: 18,
           },
           rpcUrls: [config.defaultProvider],

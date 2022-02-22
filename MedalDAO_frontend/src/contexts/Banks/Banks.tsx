@@ -1,29 +1,27 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Context from './context';
-import useBombFinance from '../../hooks/useBombFinance';
-import {Bank} from '../../bomb-finance';
-import config, {bankDefinitions} from '../../config';
+import useTombFinance from '../../hooks/useTombFinance';
+import { Bank } from '../../tomb-finance';
+import config, { bankDefinitions } from '../../config';
 
-const Banks: React.FC = ({children}) => {
+const Banks: React.FC = ({ children }) => {
   const [banks, setBanks] = useState<Bank[]>([]);
-  const bombFinance = useBombFinance();
-  const isUnlocked = bombFinance?.isUnlocked;
+  const tombFinance = useTombFinance();
+  const isUnlocked = tombFinance?.isUnlocked;
 
   const fetchPools = useCallback(async () => {
     const banks: Bank[] = [];
 
     for (const bankInfo of Object.values(bankDefinitions)) {
       if (bankInfo.finished) {
-        if (!bombFinance.isUnlocked) continue;
-        
+        if (!tombFinance.isUnlocked) continue;
+
         // only show pools staked by user
-        const balance = await bombFinance.stakedBalanceOnBank(
+        const balance = await tombFinance.stakedBalanceOnBank(
           bankInfo.contract,
           bankInfo.poolId,
-          bombFinance.myAccount,
-          );
-          
-          console.log('================> debug', balance.toString());
+          tombFinance.myAccount,
+        );
         if (balance.lte(0)) {
           continue;
         }
@@ -31,22 +29,21 @@ const Banks: React.FC = ({children}) => {
       banks.push({
         ...bankInfo,
         address: config.deployments[bankInfo.contract].address,
-        depositToken: bombFinance.externalTokens[bankInfo.depositTokenName],
-        earnToken: bankInfo.earnTokenName === 'BUL' ? bombFinance.BUL : bombFinance.BSHARE,
+        depositToken: tombFinance.externalTokens[bankInfo.depositTokenName],
+        earnToken: bankInfo.earnTokenName === '2OMB' ? tombFinance.TOMB : tombFinance.TSHARE,
       });
     }
-
     banks.sort((a, b) => (a.sort > b.sort ? 1 : -1));
     setBanks(banks);
-  }, [bombFinance, setBanks]);
+  }, [tombFinance, setBanks]);
 
   useEffect(() => {
-    if (bombFinance) {
+    if (tombFinance) {
       fetchPools().catch((err) => console.error(`Failed to fetch pools: ${err.stack}`));
     }
-  }, [isUnlocked, bombFinance, fetchPools]);
+  }, [isUnlocked, tombFinance, fetchPools]);
 
-  return <Context.Provider value={{banks}}>{children}</Context.Provider>;
+  return <Context.Provider value={{ banks }}>{children}</Context.Provider>;
 };
 
 export default Banks;

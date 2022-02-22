@@ -1,17 +1,17 @@
-import {useEffect, useState} from 'react';
-import {BigNumber} from 'ethers';
-import useBombFinance from './useBombFinance';
+import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
+import useTombFinance from './useTombFinance';
 
 const useTreasuryAmount = () => {
   const [amount, setAmount] = useState(BigNumber.from(0));
-  const bombFinance = useBombFinance();
+  const tombFinance = useTombFinance();
 
   useEffect(() => {
-    if (bombFinance) {
-      const {Treasury} = bombFinance.contracts;
-      bombFinance.BUL.balanceOf(Treasury.address).then(setAmount);
+    if (tombFinance) {
+      const { Treasury } = tombFinance.contracts;
+      tombFinance.TOMB.balanceOf(Treasury.address).then(setAmount);
     }
-  }, [bombFinance]);
+  }, [tombFinance]);
   return amount;
 };
 

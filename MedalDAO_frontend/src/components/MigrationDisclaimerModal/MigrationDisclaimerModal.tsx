@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 
 import Button from '../Button';
-import Modal, {ModalProps} from '..//Modal';
+import Modal, { ModalProps } from '..//Modal';
 import ModalActions from '..//ModalActions';
 import ModalTitle from '..//ModalTitle';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ interface MigrationDisclaimerModalProps extends ModalProps {
   onDismiss: () => void;
 }
 
-const MigrationDisclaimerModal: React.FC<MigrationDisclaimerModalProps> = ({onConfirm, onDismiss}) => {
+const MigrationDisclaimerModal: React.FC<MigrationDisclaimerModalProps> = ({ onConfirm, onDismiss }) => {
   const handleConfirm = useCallback(() => {
     onConfirm();
     // onDismiss();
@@ -23,8 +23,8 @@ const MigrationDisclaimerModal: React.FC<MigrationDisclaimerModalProps> = ({onCo
       <ModalTitle text={`Migration Disclaimer`} />
       <div>
         <StyledText>
-          Due to the upgrade, all Boardroom functionalities other than [Settle and withdraw] has been disabled for users
-          who staked in legacy Boardroom. Please withdraw all balances from the previous boardroom after the update.
+          Due to the upgrade, all Masonry functionalities other than [Settle and withdraw] has been disabled for users
+          who staked in legacy Masonry. Please withdraw all balances from the previous masonry after the update.
         </StyledText>
       </div>
       <ModalActions>

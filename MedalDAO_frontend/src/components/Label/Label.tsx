@@ -1,14 +1,14 @@
-import React, {useContext} from 'react';
-import styled, {ThemeContext} from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 
 interface LabelProps {
   text?: string;
-  variant?: 'primary' | 'secondary' | 'normal' | 'yellow';
+  variant?: 'primary' | 'secondary' | 'normal';
   color?: string;
 }
 
-const Label: React.FC<LabelProps> = ({text, variant = 'secondary', color: customColor}) => {
-  const {color} = useContext(ThemeContext);
+const Label: React.FC<LabelProps> = ({ text, variant = 'secondary', color: customColor }) => {
+  const { color } = useContext(ThemeContext);
 
   let labelColor: string;
   if (customColor) {
@@ -20,8 +20,6 @@ const Label: React.FC<LabelProps> = ({text, variant = 'secondary', color: custom
       labelColor = '#2c2560'; //color.secondary.main;
     } else if (variant === 'normal') {
       labelColor = '#2c2560'; //color.grey[300];
-    } else if (variant === 'yellow') {
-      labelColor = '#f9d749';
     }
   }
   return <StyledLabel color={labelColor}>{text}</StyledLabel>;
