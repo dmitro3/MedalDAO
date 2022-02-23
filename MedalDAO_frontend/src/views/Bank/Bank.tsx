@@ -115,10 +115,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let uniswapUrl: string;
   if (bank.depositTokenName.startsWith("2OMB-FTM")) {
     pairName = '2OMB-FTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae';
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/0x5965e44455C32bE7ee7d652A546D7396E5Be1c5E';
   } else if (bank.depositTokenName.startsWith("2SHARE-FTM")) {
     pairName = '2SHARE-FTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/0x1A2074d34114E0C63A161064582f99dF709b24FF' + tshareAddr;
   } else {
     pairName = "2OMB-2SHARE pair";
     uniswapUrl = 'https://spookyswap.finance/add/' + tombAddr + '/' + tshareAddr;

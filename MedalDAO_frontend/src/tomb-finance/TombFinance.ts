@@ -50,13 +50,13 @@ export class TombFinance {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.TOMB = new ERC20(deployments.tomb.address, provider, '2OMB');
-    this.TSHARE = new ERC20(deployments.tShare.address, provider, '2SHARES');
-    this.TBOND = new ERC20(deployments.tBond.address, provider, '2BOND');
+    this.TOMB = new ERC20(deployments.tomb.address, provider, 'MEDAL');
+    this.TSHARE = new ERC20(deployments.tShare.address, provider, 'MSHARES');
+    this.TBOND = new ERC20(deployments.tBond.address, provider, 'MBOND');
     this.FTM = this.externalTokens['WFTM'];
 
     // Uniswap V2 Pair
-    this.TOMBWFTM_LP = new Contract(externalTokens['2OMB-FTM-LP'][0], IUniswapV2PairABI, provider);
+    this.TOMBWFTM_LP = new Contract(externalTokens['MEDAL-FTM-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
     this.provider = provider;
@@ -321,9 +321,9 @@ export class TombFinance {
     if (tokenName === 'WFTM') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
-      if (tokenName === '2OMB-FTM-LP') {
+      if (tokenName === 'MEDAL-FTM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TOMB, true);
-      } else if (tokenName === '2SHARE-FTM-LP') {
+      } else if (tokenName === 'MSHARE-FTM-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
       } else if (tokenName === "2OMB-2SHARE-LP") {
         tokenPrice = await this.getLPTokenPrice(token, this.TOMB, true);

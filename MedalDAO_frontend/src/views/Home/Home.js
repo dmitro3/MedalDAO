@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const tombFtmLpStats = useLpStats('2OMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('2SHARE-FTM-LP');
+  const tombFtmLpStats = useLpStats('MEDAL-FTM-LP');
+  const tShareFtmLpStats = useLpStats('MSHARE-FTM-LP');
   const tombStats = useTombStats();
   const tShareStats = usetShareStats();
   const tBondStats = useBondStats();
@@ -72,8 +72,8 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency='
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=0x5965e44455C32bE7ee7d652A546D7396E5Be1c5E'
+  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=0x1A2074d34114E0C63A161064582f99dF709b24FF' + tShare.address;
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
@@ -110,8 +110,8 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const tombLpZap = useZap({ depositTokenName: '2OMB-FTM-LP' });
-  const tshareLpZap = useZap({ depositTokenName: '2SHARE-FTM-LP' });
+  const tombLpZap = useZap({ depositTokenName: 'MEDAL-FTM-LP' });
+  const tshareLpZap = useZap({ depositTokenName: 'MSHARE-FTM-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -126,7 +126,7 @@ const Home = () => {
         tombLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissTombZap();
       }}
-      tokenName={'2OMB-FTM-LP'}
+      tokenName={'MEDAL-FTM-LP'}
     />,
   );
 
@@ -138,7 +138,7 @@ const Home = () => {
         tshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissTshareZap();
       }}
-      tokenName={'2SHARE-FTM-LP'}
+      tokenName={'MSHARE-FTM-LP'}
     />,
   );
 
@@ -389,7 +389,7 @@ const Home = () => {
               <h2>2OMB-WFTM Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="2OMB-FTM-LP" />
+                  <TokenSymbol symbol="MEDAL-FTM-LP" />
                 </CardIcon>
               </Box>
               <Box mt={2}>
@@ -417,7 +417,7 @@ const Home = () => {
               <h2>2SHARES-WFTM Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="2SHARE-FTM-LP" />
+                  <TokenSymbol symbol="MSHARE-FTM-LP" />
                 </CardIcon>
               </Box>
               <Box mt={2}>

@@ -43,7 +43,7 @@ const ProvideLiquidity = () => {
   const tombBalance = useTokenBalance(tombFinance.TOMB);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideTombFtmLP } = useProvideTombFtmLP();
-  const tombFtmLpStats = useLpStats('2OMB-FTM-LP');
+  const tombFtmLpStats = useLpStats('MEDAL-FTM-LP');
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(2) : null), [tombStats]);

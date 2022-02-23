@@ -35,8 +35,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const tombFtmLpStats = useLpStats('2OMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('2SHARE-FTM-LP');
+  const tombFtmLpStats = useLpStats('MEDAL-FTM-LP');
+  const tShareFtmLpStats = useLpStats('MSHARE-FTM-LP');
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
   const ftmAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;

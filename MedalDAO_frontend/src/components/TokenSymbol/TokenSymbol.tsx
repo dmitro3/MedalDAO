@@ -37,8 +37,8 @@ const logosBySymbol: { [title: string]: string } = {
   WETH: wethLogo,
   MIM: shibaLogo,
   // RTOMB: rtombLogo,
-  '2OMB-FTM-LP': tombFtmLpLogo,
-  '2SHARE-FTM-LP': tshareFtmLpLogo,
+  'MEDAL-FTM-LP': tombFtmLpLogo,
+  'MSHARE-FTM-LP': tshareFtmLpLogo,
   '2OMB-2SHARE-LP': tombtshares,
   'USDC': usdc,
 };

@@ -14,11 +14,11 @@ const configurations: { [env: string]: Configuration } = {
       WFTM: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
       FUSDT: ['0xb7f24e6e708eabfaa9e64b40ee21a5adbffb51d6', 6],
       WETH: ['0x14f0C98e6763a5E13be5CE014d36c2b69cD94a1e', 18],
-      TOMB: ['0x2317610e609674e53D9039aaB85D8cAd8485A7c5', 0],
+      TOMB: ['0x5965e44455C32bE7ee7d652A546D7396E5Be1c5E', 0],
       MIM: ['0x39523112753956d19A3d6a30E758bd9FF7a8F3C0', 9],
       'USDT-FTM-LP': ['0xE7e3461C2C03c18301F66Abc9dA1F385f45047bA', 18],
-      '2OMB-FTM-LP': ['0x13Fe199F19c8F719652985488F150762A5E9c3A8', 18],
-      '2SHARE-FTM-LP': ['0x20bc90bB41228cb9ab412036F80CE4Ef0cAf1BD5', 18],
+      'MEDAL-FTM-LP': ['0x13Fe199F19c8F719652985488F150762A5E9c3A8', 18],
+      'MSHARE-FTM-LP': ['0x20bc90bB41228cb9ab412036F80CE4Ef0cAf1BD5', 18],
       '2OMB-2SHARE-LP': ['0xd9B5f00d183df52D717046521152303129F088DD', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
@@ -36,11 +36,11 @@ const configurations: { [env: string]: Configuration } = {
       WFTM: ['0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', 18],
       FUSDT: ['0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', 6], // This is actually usdc on mainnet not fusdt
       WETH: ['0x74b23882a30290451A17c44f4F05243b6b58C76d', 18], // BOO: 0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE 18
-      TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18], // ZOO: 0x09e145a1d53c0045f41aeef25d8ff982ae74dd56 0
+      TOMB: ['0x5965e44455C32bE7ee7d652A546D7396E5Be1c5E', 18], // ZOO: 0x09e145a1d53c0045f41aeef25d8ff982ae74dd56 0
       MIM: ['0x82f0b8b456c1a451378467398982d4834b6829c1', 18], // SHIBA: 0x9ba3e4f84a34df4e08c112e1a0ff148b81655615 9
       'USDT-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      '2OMB-FTM-LP': ['0xbdc7dfb7b88183e87f003ca6b5a2f81202343478', 18], // 
-      '2SHARE-FTM-LP': ['0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52', 18],
+      'MEDAL-FTM-LP': ['0x56553d5483EB7762c258f110D53e4Bef39e45108', 18], // 
+      'MSHARE-FTM-LP': ['0x310ed1BD9A8BDd4cF33AF1b9d7Ab7815134390a7', 18],
       '2OMB-2SHARE-LP': ['0xd9B5f00d183df52D717046521152303129F088DD', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
@@ -187,7 +187,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 0,
     sectionInUI: 1,
     contract: 'TombFtmLpTombRewardPool',
-    depositTokenName: '2OMB-FTM-LP',
+    depositTokenName: 'MEDAL-FTM-LP',
     earnTokenName: '2OMB',
     multiplier: "1000x",
     finished: false,
@@ -199,7 +199,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 0,
     sectionInUI: 1,
     contract: 'TombFtmLpTombRewardPoolOld',
-    depositTokenName: '2OMB-FTM-LP',
+    depositTokenName: 'MEDAL-FTM-LP',
     earnTokenName: 'TOMB',
     multiplier: "0",
     finished: true,
@@ -211,7 +211,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 0,
     sectionInUI: 2,
     contract: 'TombFtmLPTShareRewardPool',
-    depositTokenName: '2OMB-FTM-LP',
+    depositTokenName: 'MEDAL-FTM-LP',
     earnTokenName: '2SHARE',
     multiplier: "3000x",
     finished: false,
@@ -223,7 +223,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 1,
     sectionInUI: 2,
     contract: 'TshareFtmLPTShareRewardPool',
-    depositTokenName: '2SHARE-FTM-LP',
+    depositTokenName: 'MSHARE-FTM-LP',
     earnTokenName: '2SHARE',
     multiplier: "2400x",
     finished: false,

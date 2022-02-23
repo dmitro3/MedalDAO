@@ -149,7 +149,7 @@ const Nav = () => {
 							{/* <a target="_blank" href="https://docs.2omb.finance/contracts/tokens" className={classes.link}>
                 Contracts
               </a> */}
-              <a target="_blank" rel="noopener noreferrer" href="https://docs.2omb.finance" className={classes.link}>
+              <a target="_blank" rel="noopener noreferrer" href="https://docs" className={classes.link}>
                 Docs
               </a>
               {/* <a target="_blank" rel="noopener noreferrer" href="https://3omb.finance/" className={classes.link}>

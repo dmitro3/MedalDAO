@@ -49,25 +49,25 @@ const Footer = () => {
 					</Grid>
 					<Grid item xs={6} style={{ textAlign: 'right' }}>
 						<a
-							href="https://twitter.com/"
+							href="https://twitter.com/MedalDAOFinance"
 							rel="noopener noreferrer"
 							target="_blank"
 							className={classes.link}
 						>
 							<img alt="twitter" src={TwitterImage} className={classes.img} />
 						</a>
-						<a href="https://" rel="noopener noreferrer" target="_blank" className={classes.link}>
+						<a href="https://t.me/+SJUppNsCOzhiMzhk" rel="noopener noreferrer" target="_blank" className={classes.link}>
 							<img alt="telegram" src={TelegramImage} className={classes.img} />
 						</a>
 						<a
-							href="https://github.com/"
+							href="https://github.com/MedalFinance"
 							rel="noopener noreferrer"
 							target="_blank"
 							className={classes.link}
 						>
 							<img alt="github" src={GithubImage} className={classes.img} />
 						</a>
-						<a href="https://discord.gg/" rel="noopener noreferrer" target="_blank" className={classes.link}>
+						<a href="https://discord.gg/nsyVw26A8b" rel="noopener noreferrer" target="_blank" className={classes.link}>
 							<img alt="discord" src={DiscordImage} className={classes.img} />
 						</a>
 					</Grid>
