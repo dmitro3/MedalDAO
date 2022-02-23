@@ -105,11 +105,11 @@ const Nav = () => {
 						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
 							{/* <a className={ classes.brandLink } href="/">2omb Finance</a> */}
 							<Link to="/" color="inherit" className={classes.brandLink}>
-								2omb
+								Medal
 							</Link>
 						</Typography>
 						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-							<a className={classes.link} target="_blank" href="https://github.com/2omb/audit/blob/main/2omb_Audit_Jan2022.pdf">Audited by</a>
+							<a className={classes.link} target="_blank" href="https://github.com/">Audited by</a>
 							<img width="125px" height="30px" src="https://spadetech.io/wp-content/uploads/elementor/thumbs/logo-2-p6mxojhv426tba93lpzfx3ft1m3dvq0k2hu2abrgi4.png"></img>
 						</Typography>
 						<Box mr={5}>

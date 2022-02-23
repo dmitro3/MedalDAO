@@ -746,20 +746,24 @@ export class TombFinance {
   }
 
   async watchAssetInMetamask(assetName: string): Promise<boolean> {
+    const host = window.location.origin;
+
     const { ethereum } = window as any;
     if (ethereum && ethereum.networkVersion === config.chainId.toString()) {
       let asset;
       let assetUrl;
       if (assetName === 'MEDAL') {
         asset = this.TOMB;
-        assetUrl = 'file:///E:/Medal%20project/MedalDAO/MedalDAO_frontend/src/assets/img/wallet_medal_logo.png';
-      } else if (assetName === 'TSHARE') {
+        assetUrl = '/images/wallet_medal_logo.png';
+      } else if (assetName === 'MSHARE') {
         asset = this.TSHARE;
-        assetUrl = 'https://tomb.finance/presskit/tshare_icon_noBG.png';
-      } else if (assetName === 'TBOND') {
+        assetUrl = '/images/wallet_mshare_logo.png';
+      } else if (assetName === 'MBOND') {
         asset = this.TBOND;
-        assetUrl = 'https://tomb.finance/presskit/tbond_icon_noBG.png';
+        assetUrl = '/image/wallet_mbond_logo.png';
       }
+
+      const imageURL = `${host}/${assetUrl}`;
       await ethereum.request({
         method: 'wallet_watchAsset',
         params: {
@@ -768,7 +772,7 @@ export class TombFinance {
             address: asset.address,
             symbol: asset.symbol,
             decimals: 18,
-            image: assetUrl,
+            image: imageURL,
           },
         },
       });

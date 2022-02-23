@@ -72,7 +72,7 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae'
+  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency='
   const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
@@ -157,11 +157,11 @@ const Home = () => {
             <Box p={4} style={{ textAlign: 'center' }}>
               <h2>Welcome to Medal Finance!</h2>
               <p>
-                MEDAL is an algocoin which is designed to follow the price of BNB. Enjoy high yields normally only found
-                on high risk assets, but with exposure to BNB instead!
+                MEDAL is an algocoin which is designed to follow the price of FTM. Enjoy high yields normally only found
+                on high risk assets, but with exposure to FTM instead!
               </p>
               <p>
-                <strong>MEDAL is pegged via algorithm to a 100:1 ratio to BNB.</strong>
+                <strong>MEDAL is pegged via algorithm to a 1:1 ratio to FTM.</strong>
               </p>
               <p>
                 <IconTelegram alt="telegram" style={{ fill: '#dddfee', height: '15px' }} /> Join our{' '}
@@ -181,7 +181,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
               <Alert variant="filled" severity="warning">
-                <b> Please visit our <StyledLink target="_blank" href="https://comet-finance88.gitbook.io/untitled/">documentation</StyledLink> before purchasing MEDAL or MSHARE!</b>
+                <b> Please visit our <StyledLink target="_blank" href="https://">documentation</StyledLink> before purchasing MEDAL or MSHARE!</b>
               </Alert>
             </Box>
         </Grid>
@@ -221,19 +221,19 @@ const Home = () => {
                 style={{ marginRight: '10px' }}
                 className={classes.button}
               >
-                Buy 2OMB
+                <b>Buy MEDAL</b>
               </Button>
               {/* <Button variant="contained" target="_blank" href={buyTShareAddress} className={classes.button}>
                 Buy 2SHARE
               </Button> */}
-              <Button color="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca" variant="contained" style={{ marginRight: '10px' }}>
-                Buy 2SHARES
+              <Button color="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=" variant="contained" style={{ marginRight: '10px' }}>
+                <b>Buy MSHARE</b>
               </Button>
-              <Button color="contained" target="_blank" href="https://dexscreener.com/fantom/0xbdc7dfb7b88183e87f003ca6b5a2f81202343478" variant="contained" style={{ marginRight: '10px' }}>
-                2OMB Chart
+              <Button color="contained" target="_blank" href="https://dexscreener.com/fantom/" variant="contained" style={{ marginRight: '10px' }}>
+                <b>MEDAL Chart</b>
               </Button>
-              <Button color="contained" target="_blank" href="https://dexscreener.com/fantom/0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca" variant="contained" style={{ marginRight: '10px' }}>
-                2SHARES Chart
+              <Button color="contained" target="_blank" href="https://dexscreener.com/fantom/" variant="contained" style={{ marginRight: '10px' }}>
+                <b>MSHARE Chart</b>
               </Button>
             </CardContent>
           </Card>
@@ -309,7 +309,18 @@ const Home = () => {
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>2SHARES</h2>
+              <h2>MSHARE</h2>
+              <Button
+                onClick={() => {
+                  tombFinance.watchAssetInMetamask('MSHARE');
+                }}
+                color="default"
+                variant="outlined"
+                style={{ position: 'absolute', top: '10px', right: '10px' }}
+              >
+                +&nbsp;
+                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+              </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="TSHARE" />
@@ -335,7 +346,18 @@ const Home = () => {
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>2BOND</h2>
+              <h2>MBOND</h2>
+              <Button
+                onClick={() => {
+                  tombFinance.watchAssetInMetamask('MBOND');
+                }}
+                color="default"
+                variant="outlined"
+                style={{ position: 'absolute', top: '10px', right: '10px' }}
+              >
+                +&nbsp;
+                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+              </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="TBOND" />
@@ -361,7 +383,7 @@ const Home = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
               <h2>2OMB-WFTM Spooky LP</h2>
@@ -388,8 +410,8 @@ const Home = () => {
               </span>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        </Grid> */}
+        {/* <Grid item xs={12} sm={6}>
           <Card>
             <CardContent align="center">
               <h2>2SHARES-WFTM Spooky LP</h2>
@@ -417,7 +439,7 @@ const Home = () => {
               </span>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Page>
   );
