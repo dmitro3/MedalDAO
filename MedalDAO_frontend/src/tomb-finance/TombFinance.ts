@@ -13,6 +13,8 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
 import { genesisDefinitions } from '../config';
 
+import MedalImg from '../assets/img/wallet_medal_logo.png';
+
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
 import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
@@ -748,9 +750,9 @@ export class TombFinance {
     if (ethereum && ethereum.networkVersion === config.chainId.toString()) {
       let asset;
       let assetUrl;
-      if (assetName === 'TOMB') {
+      if (assetName === 'MEDAL') {
         asset = this.TOMB;
-        assetUrl = 'https://tomb.finance/presskit/tomb_icon_noBG.png';
+        assetUrl = 'file:///E:/Medal%20project/MedalDAO/MedalDAO_frontend/src/assets/img/wallet_medal_logo.png';
       } else if (assetName === 'TSHARE') {
         asset = this.TSHARE;
         assetUrl = 'https://tomb.finance/presskit/tshare_icon_noBG.png';

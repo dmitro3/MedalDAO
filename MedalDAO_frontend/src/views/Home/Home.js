@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/background.png';
 import HomeImageMobile from '../../assets/img/mobile_background.png';
-import CashImage from '../../assets/img/t_2OMB-02.png';
+import CashImage from '../../assets/img/t_medal-02.png';
 import Image from 'material-ui-image';
 import styled from 'styled-components';
 import { Alert } from '@material-ui/lab';
@@ -22,6 +22,7 @@ import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance
 import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
+import { ReactComponent as IconTelegram } from '../../assets/img/telegram_white.svg';
 
 import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
@@ -146,28 +147,42 @@ const Home = () => {
       <BackgroundImage />
       <Grid container spacing={3}>
         {/* Logo */}
-        <Grid container item xs={12} sm={3} justify="center">
+        <Grid container item xs={12} sm={4} justify="center">
           {/* <Paper>xs=6 sm=3</Paper> */}
 		  <Image color="none" style={{ width: "235px", height: "235px", objectFit: "contain", paddingTop: '0px' }} src={CashImage} />
         </Grid>
         {/* Explanation text */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={8}>
           <Paper>
-            <Box p={4}>
-              <h2>Welcome to 2omb!</h2>
-              <p>Pegged to the price of 1 FTM via seigniorage.</p>
+            <Box p={4} style={{ textAlign: 'center' }}>
+              <h2>Welcome to Medal Finance!</h2>
               <p>
-							  <StyledLink href="/farms" style={{ color: '#05147c' }} >Stake</StyledLink> your 2OMB-FTM LP tokens to earn 2SHARE seigniorage rewards.
+                MEDAL is an algocoin which is designed to follow the price of BNB. Enjoy high yields normally only found
+                on high risk assets, but with exposure to BNB instead!
               </p>
-              <p>To maximize profits, stake your harvested 2SHAREs in the <StyledLink href="/boardroom" style={{ color: '#05147c' }} >Boardroom</StyledLink> to earn more 2OMB!</p>
+              <p>
+                <strong>MEDAL is pegged via algorithm to a 100:1 ratio to BNB.</strong>
+              </p>
+              <p>
+                <IconTelegram alt="telegram" style={{ fill: '#dddfee', height: '15px' }} /> Join our{' '}
+                <a
+                  href="https://t.me/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  style={{ color: '#dddfee' }}
+                >
+                  Telegram
+                </a>{' '}
+                to find out more!
+              </p>
             </Box>
           </Paper>
         </Grid>		
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
-            <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. 2omb is beta software and may contain bugs. By using 2omb, you agree that the 2omb and 3omb team is not responsible for any financial losses from investing in 2omb or 3omb.
-            </Alert>
+              <Alert variant="filled" severity="warning">
+                <b> Please visit our <StyledLink target="_blank" href="https://comet-finance88.gitbook.io/untitled/">documentation</StyledLink> before purchasing MEDAL or MSHARE!</b>
+              </Alert>
             </Box>
         </Grid>
 
@@ -228,13 +243,24 @@ const Home = () => {
         <Grid item xs={12} sm={4}>
           <Card>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>2OMB</h2>
+              <h2>MEDAL</h2>
+              <Button
+                onClick={() => {
+                  tombFinance.watchAssetInMetamask('MEDAL');
+                }}
+                color="default"
+                variant="outlined"
+                style={{ position: 'absolute', top: '10px', right: '10px' }}
+              >
+                +&nbsp;
+                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+              </Button>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="TOMB" />
                 </CardIcon>
               </Box>
-              Current Price
+                Current Price
               <Box>
                 <span style={{ fontSize: '30px' }}>{tombPriceInFTM ? tombPriceInFTM : '-.----'} FTM</span>
               </Box>
