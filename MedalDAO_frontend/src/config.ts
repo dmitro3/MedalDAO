@@ -50,71 +50,6 @@ const configurations: { [env: string]: Configuration } = {
   },
 };
 
-export const genesisDefinitions: { [contractName: string]: BankInfo } = {
-  /*
-  Explanation:
-  name: description of the card
-  poolId: the poolId assigned in the contract
-  sectionInUI: way to distinguish in which of the 3 pool groups it should be listed
-        - 0 = Single asset stake pools
-        - 1 = LP asset staking rewarding TOMB
-        - 2 = LP asset staking rewarding TSHARE
-  contract: the contract name which will be loaded from the deployment.environmnet.json
-  depositTokenName : the name of the token to be deposited
-  earnTokenName: the rewarded token
-  finished: will disable the pool on the UI if set to true
-  sort: the order of the pool
-  */
-  TombFtmRewardPool: {
-    name: 'Stake WFTM, earn 2OMB',
-    poolId: 0,
-    sectionInUI: 0,
-    contract: 'TombFtmRewardPool',
-    depositTokenName: 'WFTM',
-    earnTokenName: '2OMB',
-    multiplier: "100x",
-    finished: false,
-    sort: 1,
-    closedForStaking: false,
-  },
-  TombWethRewardPool: {
-    name: 'Stake wETH, earn 2OMB',
-    poolId: 1,
-    sectionInUI: 0,
-    contract: 'TombWethGenesisRewardPool',
-    depositTokenName: 'WETH',
-    earnTokenName: '2OMB',
-    multiplier: "50x",
-    finished: false,
-    sort: 2,
-    closedForStaking: false,
-  },
-  TombShibaRewardPool: {
-    name: 'Stake MIM, earn 2OMB',
-    poolId: 2,
-    sectionInUI: 0,
-    contract: 'TombShibaGenesisRewardPool',
-    depositTokenName: 'MIM',
-    earnTokenName: '2OMB',
-    multiplier: "25x",
-    finished: false,
-    sort: 3,
-    closedForStaking: false,
-  },
-  TombTombRewardPool: {
-    name: 'Stake TOMB, earn 2OMB',
-    poolId: 3,
-    sectionInUI: 0,
-    contract: 'TombTombGenesisRewardPool',
-    depositTokenName: 'TOMB',
-    earnTokenName: '2OMB',
-    multiplier: "100x",
-    finished: false,
-    sort: 4,
-    closedForStaking: false,
-  },
-}
-
 export const bankDefinitions: { [contractName: string]: BankInfo } = {
   /*
   Explanation:
@@ -131,80 +66,17 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   sort: the order of the pool
   */
   TombFtmRewardPool: {
-    name: 'Stake WFTM, earn 2OMB',
+    name: 'Stake WFTM, earn MEDAL',
     poolId: 0,
     sectionInUI: 0,
-    contract: 'TombFtmRewardPool',
+    contract: 'TombFtmGenesisRewardPool',
     depositTokenName: 'WFTM',
-    earnTokenName: '2OMB',
+    earnTokenName: 'MEDAL',
     multiplier: "100x",
     finished: false,
     sort: 1,
     closedForStaking: false,
-    genesisFinished: true
-  },
-  TombWethRewardPool: {
-    name: 'Stake wETH, earn 2OMB',
-    poolId: 1,
-    sectionInUI: 0,
-    contract: 'TombWethGenesisRewardPool',
-    depositTokenName: 'WETH',
-    earnTokenName: '2OMB',
-    multiplier: "50x",
-    finished: false,
-    sort: 2,
-    closedForStaking: false,
-    genesisFinished: true
-  },
-  TombShibaRewardPool: {
-    name: 'Stake MIM, earn 2OMB',
-    poolId: 2,
-    sectionInUI: 0,
-    contract: 'TombShibaGenesisRewardPool',
-    depositTokenName: 'MIM',
-    earnTokenName: '2OMB',
-    multiplier: "25x",
-    finished: false,
-    sort: 3,
-    closedForStaking: false,
-    genesisFinished: true
-  },
-  TombTombRewardPool: {
-    name: 'Stake TOMB, earn 2OMB',
-    poolId: 3,
-    sectionInUI: 0,
-    contract: 'TombTombGenesisRewardPool',
-    depositTokenName: 'TOMB',
-    earnTokenName: '2OMB',
-    multiplier: "100x",
-    finished: false,
-    sort: 4,
-    closedForStaking: false,
-    genesisFinished: true
-  },
-  TombFtmLPTombRewardPool: {
-    name: 'Earn 2OMB by 2OMB-WFTM',
-    poolId: 0,
-    sectionInUI: 1,
-    contract: 'TombFtmLpTombRewardPool',
-    depositTokenName: 'MEDAL-FTM-LP',
-    earnTokenName: '2OMB',
-    multiplier: "1000x",
-    finished: false,
-    sort: 5,
-    closedForStaking: false,
-  },
-  TombFtmLPTombRewardPoolOld: {
-    name: 'Earn TOMB by TOMB-FTM LP',
-    poolId: 0,
-    sectionInUI: 1,
-    contract: 'TombFtmLpTombRewardPoolOld',
-    depositTokenName: 'MEDAL-FTM-LP',
-    earnTokenName: 'TOMB',
-    multiplier: "0",
-    finished: true,
-    sort: 11,
-    closedForStaking: true,
+    genesisFinished: false,
   },
   TombFtmLPTShareRewardPool: {
     name: 'Earn 2SHARE by 2 | FTM',
@@ -218,30 +90,30 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 6,
     closedForStaking: false,
   },
-  TshareFtmLPTShareRewardPool: {
-    name: 'Earn 2SHARE by 2SHARE-WFTM LP',
-    poolId: 1,
-    sectionInUI: 2,
-    contract: 'TshareFtmLPTShareRewardPool',
-    depositTokenName: 'MSHARE-FTM-LP',
-    earnTokenName: '2SHARE',
-    multiplier: "2400x",
-    finished: false,
-    sort: 7,
-    closedForStaking: false,
-  },
-  TombTsharePTShareRewardPool: {
-    name: 'Earn 2SHARE by 2OMB-2SHARE LP',
-    poolId: 2,
-    sectionInUI: 2,
-    contract: 'TombTshareLPTShareRewardPool',
-    depositTokenName: '2OMB-2SHARE-LP',
-    earnTokenName: '2SHARE',
-    multiplier: "550x",
-    finished: false,
-    sort: 8,
-    closedForStaking: false,
-  },
+  // TshareFtmLPTShareRewardPool: {
+  //   name: 'Earn 2SHARE by 2SHARE-WFTM LP',
+  //   poolId: 1,
+  //   sectionInUI: 2,
+  //   contract: 'TshareFtmLPTShareRewardPool',
+  //   depositTokenName: 'MSHARE-FTM-LP',
+  //   earnTokenName: '2SHARE',
+  //   multiplier: "2400x",
+  //   finished: false,
+  //   sort: 7,
+  //   closedForStaking: false,
+  // },
+  // TombTsharePTShareRewardPool: {
+  //   name: 'Earn 2SHARE by 2OMB-2SHARE LP',
+  //   poolId: 2,
+  //   sectionInUI: 2,
+  //   contract: 'TombTshareLPTShareRewardPool',
+  //   depositTokenName: '2OMB-2SHARE-LP',
+  //   earnTokenName: '2SHARE',
+  //   multiplier: "550x",
+  //   finished: false,
+  //   sort: 8,
+  //   closedForStaking: false,
+  // },
   // TshareDividends: {
   //   name: 'Earn USDC dividends by staking 2SHARES',
   //   poolId: 0,

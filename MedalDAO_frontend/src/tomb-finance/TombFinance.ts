@@ -11,7 +11,6 @@ import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
-import { genesisDefinitions } from '../config';
 
 import MedalImg from '../assets/img/wallet_medal_logo.png';
 
@@ -98,15 +97,13 @@ export class TombFinance {
   //===================================================================
 
   async getTombStat(): Promise<TokenStat> {
-    const { TombFtmRewardPool, TombFtmLpTombRewardPool, TombFtmLpTombRewardPoolOld } = this.contracts;
+    const { TombFtmRewardPool, TombFtmLpTombRewardPool } = this.contracts;
     const supply = await this.TOMB.totalSupply();
     const tombRewardPoolSupply = await this.TOMB.balanceOf(TombFtmRewardPool.address);
     const tombRewardPoolSupply2 = await this.TOMB.balanceOf(TombFtmLpTombRewardPool.address);
-    const tombRewardPoolSupplyOld = await this.TOMB.balanceOf(TombFtmLpTombRewardPoolOld.address);
     const tombCirculatingSupply = supply
       .sub(tombRewardPoolSupply)
-      .sub(tombRewardPoolSupply2)
-      .sub(tombRewardPoolSupplyOld);
+      .sub(tombRewardPoolSupply2);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TOMB);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfTombInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);

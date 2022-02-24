@@ -16,7 +16,7 @@ import tBondLogo from '../../assets/img/mbond_card.png';
 import tombFtmLpLogo from '../../assets/img/2OMB-WFTM.png';
 import tshareFtmLpLogo from '../../assets/img/2SHARES-WFTM.png';
 
-import wftmLogo from '../../assets/img/ftm_logo_blue.svg';
+import wftmLogo from '../../assets/img/wFTM.png';
 import wethLogo from '../../assets/img/weth.png';
 import rtombLogo from '../../assets/img/crypto_tomb_cash.svg';
 import shibaLogo from '../../assets/img/mimlogo.png';

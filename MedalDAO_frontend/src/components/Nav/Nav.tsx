@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
+import MedalHeaderImg from '../../assets/img/nav-header.png';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -105,7 +106,7 @@ const Nav = () => {
 						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
 							{/* <a className={ classes.brandLink } href="/">2omb Finance</a> */}
 							<Link to="/" color="inherit" className={classes.brandLink}>
-								Medal
+                <img width="125px" height="30px" src={MedalHeaderImg}></img>
 							</Link>
 						</Typography>
 						<Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
@@ -117,13 +118,13 @@ const Nav = () => {
 								Home
 							</Link>
 							<Link color="textPrimary" to="/farms" className={classes.link}>
-								Farms (coming soon)
+								Farms
 							</Link>
 							<Link color="textPrimary" to="/boardroom" className={classes.link}>
-								Boardroom (coming soon)
+								Boardroom
 							</Link>
 							<Link color="textPrimary" to="/bonds" className={classes.link}>
-								Bonds (coming soon)
+								Bonds
 							</Link>
 							{/* <Link color="textPrimary" to="/dividends" className={classes.link}>
                 Dividends
@@ -170,7 +171,7 @@ const Nav = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              2omb
+              Medal
             </Typography>
 
             <Drawer
@@ -192,28 +193,28 @@ const Nav = () => {
               <Divider />
               <List>
                 <ListItemLink primary="HOME" to="/" />
-                <ListItemLink primary="2FARMS" to="/farms" />
+                <ListItemLink primary="FARMS" to="/farms" />
                 <ListItemLink primary="BOARDROOM" to="/boardroom" />
                 <ListItemLink primary="BONDS" to="/bonds" />
                 {/* <ListItemLink primary="DIVIDENDS" to="/dividends" /> */}
                 {/* <ListItemLink primary="SBS" to="/sbs" />
                 <ListItemLink primary="Liquidity" to="/liquidity" />
                 <ListItemLink primary="Regulations" to="/regulations" /> */}
-                <ListItem button component="a" href="https://3omb.finance/rebates">
+                {/* <ListItem button component="a" href="https://3omb.finance/rebates">
                   <ListItemText>3DAO</ListItemText>
                 </ListItem>
                 <ListItem button component="a" href="https://www.devilfinance.io">
                   <ListItemText>VAULTS</ListItemText>
-                </ListItem>
+                </ListItem> */}
                 {/* <ListItem button component="a" href="https://snapshot.org/#/forgiving.forg.eth">
                   <ListItemText>GOVERNANCE</ListItemText>
                 </ListItem> */}
-                <ListItem button component="a" href="https://docs.2omb.finance">
+                <ListItem button component="a" href="https://docs">
                   <ListItemText>DOCS</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://3omb.finance/">
+                {/* <ListItem button component="a" href="https://3omb.finance/">
                   <ListItemText>3OMB</ListItemText>
-                </ListItem>
+                </ListItem> */}
                 <ListItem style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <AccountButton text="Connect" onOpen={handleDrawerClose} />
                 </ListItem>

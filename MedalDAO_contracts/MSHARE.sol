@@ -779,7 +779,7 @@ contract MShare is ERC20Burnable, Operator {
     uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 65000 ether;
     uint256 public constant DEV_FUND_POOL_ALLOCATION = 4999 ether;
 
-    uint256 public constant VESTING_DURATION = 365 days;
+    uint256 public constant VESTING_DURATION = 90 days;
     uint256 public startTime;
     uint256 public endTime;
 
