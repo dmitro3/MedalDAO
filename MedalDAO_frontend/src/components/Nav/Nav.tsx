@@ -171,7 +171,7 @@ const Nav = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Medal
+              <img width="125px" height="30px" src={MedalHeaderImg}></img>
             </Typography>
 
             <Drawer

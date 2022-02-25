@@ -13,6 +13,7 @@ const useEarnings = (poolName: ContractName, earnTokenName: String, poolId: Numb
     const balance = await tombFinance.earnedFromBank(poolName, earnTokenName, poolId, tombFinance.myAccount);
     setBalance(balance);
   }, [poolName, earnTokenName, poolId, tombFinance]);
+  console.log("balance", poolId)
 
   useEffect(() => {
     if (isUnlocked) {
