@@ -234,13 +234,19 @@ export class TombFinance {
     console.log("stake in pool:", stakeInPool);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
     const stat = bank.earnTokenName === 'MEDAL' ? await this.getTombStat() : await this.getShareStat();
+<<<<<<< HEAD
     console.log("earntoken", poolContract)
+=======
+>>>>>>> 5de89a52a80fbdbf7502ebdb3261bf384b446c05
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
       poolContract,
       bank.depositTokenName,
+<<<<<<< HEAD
       bank.poolId
+=======
+>>>>>>> 5de89a52a80fbdbf7502ebdb3261bf384b446c05
       );
       const tokenPerHour = tokenPerSecond.mul(60).mul(60);
       const totalRewardPricePerYear =
@@ -273,10 +279,24 @@ export class TombFinance {
   ) {
     if (earnTokenName === 'MEDAL') {
       if (!contractName.endsWith('TombRewardPool')) {
+<<<<<<< HEAD
         const rewardPerSecond = await poolContract.medalPerSecond();
         const totalAllocPoint = await poolContract.totalAllocPoint();
         const allocPoint = (await poolContract.poolInfo(pid)).allocPoint;
         return rewardPerSecond.mul(allocPoint).div(totalAllocPoint);
+=======
+        const rewardPerSecond = (await poolContract.medalPerSecond()).mul(20);
+        if (depositTokenName === 'WFTM') {
+          return rewardPerSecond.mul(6000).div(11000).div(24); // 6000
+        } else if (depositTokenName === 'WETH') {
+          return rewardPerSecond.mul(3000).div(11000).div(24); // 2500
+        } else if (depositTokenName === 'TOMB') {
+          return rewardPerSecond.mul(6000).div(11000).div(24); // 1000
+        } else if (depositTokenName === 'MIM') {
+          return rewardPerSecond.mul(1500).div(11000).div(24); // 1000
+        }
+        return rewardPerSecond.div(24);
+>>>>>>> 5de89a52a80fbdbf7502ebdb3261bf384b446c05
       }
       const poolStartTime = await poolContract.poolStartTime();
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);

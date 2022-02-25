@@ -27,7 +27,11 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <Balances>
         <StyledBalanceWrapper>
+<<<<<<< HEAD
           <TokenSymbol symbol="MEDAL" />
+=======
+          <TokenSymbol symbol="TOMB" />
+>>>>>>> 5de89a52a80fbdbf7502ebdb3261bf384b446c05
           <StyledBalance>
             <StyledValue>{displayTombBalance}</StyledValue>
             <Label text="MEDAL Available" />
