@@ -3,8 +3,6 @@ import React from 'react';
 //Graveyard ecosystem logos
 import tombLogo from '../../assets/img/medal_card.png';
 import tShareLogo from '../../assets/img/mshare_card.png';
-import tombLogoPNG from '../../assets/img/2omb-01.png';
-import tShareLogoPNG from '../../assets/img/t_2SHARE-01.png';
 import tBondLogo from '../../assets/img/mbond_card.png';
 
 // import tombLogo from '../../assets/img/crypto_tomb_cash.svg';
@@ -29,8 +27,6 @@ const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
   TOMB: tombLogo,
-  TOMBPNG: tombLogoPNG,
-  TSHAREPNG: tShareLogoPNG,
   TSHARE: tShareLogo,
   TBOND: tBondLogo,
   WFTM: wftmLogo,

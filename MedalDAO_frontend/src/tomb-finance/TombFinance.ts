@@ -97,17 +97,15 @@ export class TombFinance {
   //===================================================================
 
   async getTombStat(): Promise<TokenStat> {
-    const { TombFtmRewardPool, TombFtmLpTombRewardPool } = this.contracts;
+    const {  TombFtmGenesisRewardPool, Treasury } = this.contracts;
     const supply = await this.TOMB.totalSupply();
-    const tombRewardPoolSupply = await this.TOMB.balanceOf(TombFtmRewardPool.address);
-    const tombRewardPoolSupply2 = await this.TOMB.balanceOf(TombFtmLpTombRewardPool.address);
+    const tombRewardPoolSupply = await this.TOMB.balanceOf(TombFtmGenesisRewardPool.address);
+    // const tombRewardPoolSupply2 = await this.TOMB.balanceOf(TombFtmLpTombRewardPool.address);
     const tombCirculatingSupply = supply
-      .sub(tombRewardPoolSupply)
-      .sub(tombRewardPoolSupply2);
+      .sub(tombRewardPoolSupply);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TOMB);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfTombInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
-
     return {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfTombInDollars,
@@ -181,13 +179,12 @@ export class TombFinance {
     const { TombFtmLPTShareRewardPool } = this.contracts;
 
     const supply = await this.TSHARE.totalSupply();
-
+    
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TSHARE);
     const tombRewardPoolSupply = await this.TSHARE.balanceOf(TombFtmLPTShareRewardPool.address);
     const tShareCirculatingSupply = supply.sub(tombRewardPoolSupply);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
-
     return {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfSharesInDollars,
@@ -236,23 +233,22 @@ export class TombFinance {
     const stakeInPool = await depositToken.balanceOf(bank.address);
     console.log("stake in pool:", stakeInPool);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === '2OMB' ? await this.getTombStat() : await this.getShareStat();
+    const stat = bank.earnTokenName === 'MEDAL' ? await this.getTombStat() : await this.getShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
       poolContract,
       bank.depositTokenName,
-    );
-
-    const tokenPerHour = tokenPerSecond.mul(60).mul(60);
-    const totalRewardPricePerYear =
+      );
+      const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+      const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-    const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
-    const totalStakingTokenInPool =
+      const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+      const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
-    const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
-    return {
+      const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
+      const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
+      return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
       yearlyAPR: yearlyAPR.toFixed(2).toString(),
       TVL: TVL.toFixed(2).toString(),
@@ -272,9 +268,9 @@ export class TombFinance {
     poolContract: Contract,
     depositTokenName: string,
   ) {
-    if (earnTokenName === '2OMB') {
+    if (earnTokenName === 'MEDAL') {
       if (!contractName.endsWith('TombRewardPool')) {
-        const rewardPerSecond = (await poolContract.two_ombPerSecond()).mul(20);
+        const rewardPerSecond = (await poolContract.medalPerSecond()).mul(20);
         if (depositTokenName === 'WFTM') {
           return rewardPerSecond.mul(6000).div(11000).div(24); // 6000
         } else if (depositTokenName === 'WETH') {
@@ -432,9 +428,9 @@ export class TombFinance {
   ): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
-      if (earnTokenName === '2OMB') {
-        // problem is pending2OMB isnt a function since the abi still says pendingTOMB
-        return await pool.pending2OMB(poolId, account);
+      if (earnTokenName === 'MEDAL') {
+        // problem is pendingMEDAL isnt a function since the abi still says pendingTOMB
+        return await pool.pendingMEDAL(poolId, account);
       } else {
         return await pool.pendingShare(poolId, account);
       }

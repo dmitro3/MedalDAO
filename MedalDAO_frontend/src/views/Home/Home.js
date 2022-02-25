@@ -16,7 +16,6 @@ import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usetShareStats from '../../hooks/usetShareStats';
-import useBurned2SHARES from '../../hooks/useBurned2SHARES.js';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
 import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
@@ -60,7 +59,6 @@ const Home = () => {
   const tShareStats = usetShareStats();
   const tBondStats = useBondStats();
   const tombFinance = useTombFinance();
-  const { balance } = useBurned2SHARES();
 
   let tomb;
   let tShare;
@@ -149,7 +147,7 @@ const Home = () => {
         {/* Logo */}
         <Grid container item xs={12} sm={4} justify="center">
           {/* <Paper>xs=6 sm=3</Paper> */}
-		  <Image color="none" style={{ width: "235px", height: "235px", objectFit: "contain", paddingTop: '0px' }} src={CashImage} />
+		      <Image color="none" style={{ width: "235px", height: "235px", objectFit: "contain", paddingTop: '0px' }} src={CashImage} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
@@ -166,7 +164,7 @@ const Home = () => {
               <p>
                 <IconTelegram alt="telegram" style={{ fill: '#dddfee', height: '15px' }} /> Join our{' '}
                 <a
-                  href="https://t.me/"
+                  href="https://t.me/+SJUppNsCOzhiMzhk"
                   rel="noopener noreferrer"
                   target="_blank"
                   style={{ color: '#dddfee' }}
@@ -174,6 +172,9 @@ const Home = () => {
                   Telegram
                 </a>{' '}
                 to find out more!
+              </p>
+              <p>
+                MEDAL will launch at Mar 01 2022 00:00:00(GMT)
               </p>
             </Box>
           </Paper>
@@ -272,7 +273,7 @@ const Home = () => {
               <span style={{ fontSize: '14px' }}>
                 Market Cap: ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)} <br />
                 Circulating Supply: {tombCirculatingSupply} <br />
-                Total Supply: {tombTotalSupply-140000}
+                Total Supply: {tombTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -335,8 +336,8 @@ const Home = () => {
               </Box>
               <span style={{ fontSize: '14px' }}>
                 Market Cap: ${(tShareCirculatingSupply * tSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tShareCirculatingSupply-balance} <br />
-                Total Supply: {tShareTotalSupply-balance}
+                Circulating Supply: {tShareCirculatingSupply} <br />
+                Total Supply: {tShareTotalSupply}
               </span>
             </CardContent>
           </Card>
